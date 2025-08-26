@@ -2,8 +2,9 @@
 
 > This package allows you to easily perform frequency tabulations and summary statistics.
 
+<img width="300" height="300" alt="ChatGPT Image 2025年8月26日 20_01_48" src="https://github.com/user-attachments/assets/3bb0424d-e0ca-4c81-b486-29251681acce" />
 
-<img src="https://github.com/stainlessfish/rtfcreator/blob/main/rtfcreateor_megane.png" alt="pharmaforest" width="300" height="300"> 
+
 ---
 
 ---
