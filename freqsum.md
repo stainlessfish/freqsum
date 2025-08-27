@@ -10,12 +10,12 @@
   
 - Package: FreqSum
 - Version: 0.1.0
-- Generated: 2025-08-26T12:51:21
+- Generated: 2025-08-27T16:51:23
 - Author(s): [Hiroki Yamanobe]
 - Maintainer(s): [Hiroki Yamanobe]
 - License: MIT
-- File SHA256: `F*860913B8CA71147C7DD4A24D246A4EE09E522716A71AFCBFF4452C8369E3E840` for this version
-- Content SHA256: `C*386F8ABF74FA3493A19236AF8E81F22081B891B36AD4192C97438523371B1804` for this version
+- File SHA256: `F*34995B02B0A1AEEAB9D4F44DF1443D9890D7418E309F5560CB5F2096F387FBA6` for this version
+- Content SHA256: `C*90992F0B194BC408A7E6DA8AAE758A9330D94C5D5BBCF33561BDF256383A172F` for this version
   
 ---
  
@@ -59,7 +59,6 @@ The `FreqSum` package consists of the following content:
 ## `_01_adsl_dummy` data <a name="01adsldummy-data-1"></a> ######
 
 ## Create dummy datasets
-ADSL_DUMMY
 
   
 ---
@@ -160,7 +159,8 @@ ADSL_DUMMY
  
 # License <a name="license"></a> ######
  
-Copyright (c) [2025]  [Hiroki Yamanobe]
+Copyright (c) 2025 Hiroki Yamanobe
+Copyright (c) 2025 Ryo Nakaya
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
