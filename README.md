@@ -39,11 +39,23 @@ This package provides a streamlined and efficient toolkit for descriptive statis
 
 ##  Version history
 
-0.1.0(26August2025) : Initial version
+0.1.0(27August2025) : Initial version
 
 ---
 
-## Parameters for `freqStat`
+## `freqStat`
+
+#### Purpose
+Calculates counts and percentages of a specified categorical variable (e.g., sex or treatment group) across groups and outputs the results as a table-ready dataset.
+
+#### Usage Flow
+Specify the input dataset.
+Provide the analysis variable (var) and the grouping variable (group).
+Percent denominators are automatically derived from the treatment group (trtGrp).
+Run the macro to obtain a clean output dataset with counts and percentages by category.
+
+
+### Parameters 
 
 | Parameter   | Description                                                                 |
 |-------------|-----------------------------------------------------------------------------|
@@ -60,7 +72,35 @@ This package provides a streamlined and efficient toolkit for descriptive statis
 | debug       | Debug mode: `Y` = keep temporary datasets, `N` = delete them.               |
 
 
-## Parameters for `summaryStat`
+###  How to Use
+
+```sas
+%FreqStat(inds=ADSL_dummy,sortNum=1, outds=sum01, grpNum=3, trtGrp=TRT01PN, label=%nrstr(Sex),          trgtVar=SEX,    trgtVarTyp=C, trgtValue=%str('M','F','U'),              trgtLabel=%str('Male','Female','Unknown') );
+%FreqStat(inds=ADSL_dummy,sortNum=3, outds=sum03, grpNum=3, trtGrp=TRT01PN, label=%nrstr(Age Category), trgtVar=AGEGR1, trgtVarTyp=C, trgtValue=%str('<40','>=40'),             trgtLabel=%str('<40','>=40') );
+%FreqStat(inds=ADSL_dummy,sortNum=4, outds=sum04, grpNum=3, trtGrp=TRT01PN, label=%nrstr(Stage),        trgtVar=STAGEN, trgtVarTyp=N, trgtValue=%str(1,2,3,4,5),                trgtLabel=%str('Stage I','Stage IIa','Stage IIb','Stage III','Stage IV') );
+%FreqStat(inds=ADSL_dummy,sortNum=5, outds=sum05, grpNum=3, trtGrp=TRT01PN, label=%nrstr(Study Status), trgtVar=EOTSTT, trgtVarTyp=C, trgtValue=%str('ONGOING','DISCONTINUED'), trgtLabel=%str('Study Ongoing','Study Discontinued') );
+
+
+```
+<img width="1046" height="486" alt="image" src="https://github.com/user-attachments/assets/7ecf2dc5-968f-469c-8d2a-4d4097f296f7" />
+
+---
+
+
+
+
+## `summaryStat`
+
+#### Purpose
+Generates summary statistics (N, mean, SD, median, min, max) for a specified analysis variable across treatment groups. The macro outputs a table-ready dataset with customizable decimal precision, labels, and optional debug output.
+
+#### Usage Flow
+Specify the input dataset.
+Provide the analysis variable and the grouping variable (e.g., treatment group).
+Optionally set decimal precision, labels, and output dataset name.
+Run the macro to obtain a transposed dataset with summary statistics by group.
+
+### Parameters for `summaryStat`
 
 | Parameter   | Description                                                                 |
 |-------------|-----------------------------------------------------------------------------|
@@ -77,25 +117,12 @@ This package provides a streamlined and efficient toolkit for descriptive statis
 
 ---
 
-##  How to Use
 
-### freqStat  -- ;
+
+### How to Use
+#### Example1.
 ```sas
-%FreqStat(inds=ADSL_dummy,sortNum=1, outds=sum01, grpNum=3, trtGrp=TRT01PN, label=%nrstr(Sex),          trgtVar=SEX,    trgtVarTyp=C, trgtValue=%str('M','F','U'),              trgtLabel=%str('Male','Female','Unknown') );
-%FreqStat(inds=ADSL_dummy,sortNum=3, outds=sum03, grpNum=3, trtGrp=TRT01PN, label=%nrstr(Age Category), trgtVar=AGEGR1, trgtVarTyp=C, trgtValue=%str('<40','>=40'),             trgtLabel=%str('<40','>=40') );
-%FreqStat(inds=ADSL_dummy,sortNum=4, outds=sum04, grpNum=3, trtGrp=TRT01PN, label=%nrstr(Stage),        trgtVar=STAGEN, trgtVarTyp=N, trgtValue=%str(1,2,3,4,5),                trgtLabel=%str('Stage I','Stage IIa','Stage IIb','Stage III','Stage IV') );
-%FreqStat(inds=ADSL_dummy,sortNum=5, outds=sum05, grpNum=3, trtGrp=TRT01PN, label=%nrstr(Study Status), trgtVar=EOTSTT, trgtVarTyp=C, trgtValue=%str('ONGOING','DISCONTINUED'), trgtLabel=%str('Study Ongoing','Study Discontinued') );
-
-
-```
-<img width="1046" height="486" alt="image" src="https://github.com/user-attachments/assets/7ecf2dc5-968f-469c-8d2a-4d4097f296f7" />
-
----
-
-
-### summaryStat  -- ;
-```sas
-%SummaryStat(inds=ADSL_dummy, sortNum=2, outds=sum02, grpNum=3, trtGrp=TRT01PN, label=%str(Age),         trgtVar=AGE);
+%SummaryStat(inds=ADSL_dummy, sortNum=2, outds=sum02, grpNum=3, trtGrp=TRT01PN, label=%str(Age), trgtVar=AGE);
 
 ```
 <img width="1053" height="132" alt="image" src="https://github.com/user-attachments/assets/2316fc08-c454-4cdf-8cba-439a90b88aff" />
@@ -103,6 +130,29 @@ This package provides a streamlined and efficient toolkit for descriptive statis
 ---
 
 
+#### Example2. decimal place
+
+**`dcml=`**  
+Controls the number of decimal places for summary statistics.
+
+- **Mean, SD, and Median** → displayed with **one additional decimal place** beyond the specified value  
+  (e.g., `dcml=2` → output with 3 decimals).  
+- **Min and Max** → displayed with exactly the specified number of decimal places.  
+- If not specified, the macro attempts to automatically determine a suitable precision based on the input variable.  
+
+This design ensures that descriptive measures like mean and SD provide slightly more precision than extreme values,  
+which improves clarity in clinical summary tables.
+
+
+```sas
+%SummaryStat(inds=ADSL_dummy, sortNum=2, outds=sum02, grpNum=3, trtGrp=TRT01PN, label=%str(Age), trgtVar=AGE, dcml=1);
+
+```
+
+<img width="1070" height="113" alt="image" src="https://github.com/user-attachments/assets/c8b5a3f7-6de1-444b-9736-119673dc67ee" />
+
+
+---
 
 
 ---
